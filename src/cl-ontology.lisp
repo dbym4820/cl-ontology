@@ -113,7 +113,10 @@
   `(defparameter ,(intern (string-upcase concept-name) :ontology.class) ,contents))
 
 @export
-(defun convert-ontology ()
+(defun convert-ontology (&optional (file-name nil))
+  (if file-name
+      (set-ontology-file file-name)
+      (set-ontology-file (concatenate 'string (namestring (asdf:component-pathname (asdf:find-system :cl-ontology))) "src/data/anime-ontology.xml")))
   (defparameter *ontology-list*
     (mapcar (lambda (concept)
 	      (eval `(defontology ,concept
@@ -163,4 +166,8 @@
     (mapcar #'eval show-name)))
 
 
+
+#|
+オントロジーXMLのCLOSへのコンバート
+|#
 (convert-ontology)
