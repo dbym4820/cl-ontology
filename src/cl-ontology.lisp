@@ -9,7 +9,14 @@
 (in-package :cl-ontology)
 (annot:enable-annot-syntax)
 
-
+#|
+ユーティリティ
+あとで別ファイルに分割
+|#
+(defun flatten (ls)
+  (cond ((null ls) nil)
+        ((atom ls) (list ls))
+        (t (append (flatten (car ls)) (flatten (cdr ls))))))
 
 #|
 読み込むオントロジーのファイル
@@ -20,29 +27,6 @@
 @export
 (defun set-ontology-file (file-path)
   (setf *ontology-file* file-path))
-
-#|
-ユーティリティ
-あとで別ファイルに分割
-|#
-(defun flatten (ls)
-  (cond ((null ls) nil)
-        ((atom ls) (list ls))
-        (t (append (flatten (car ls)) (flatten (cdr ls))))))
-
-
-
-#|
-オントロジーの概念を定義するクラス
-|#
-(defclass ontology ()
-  ((class-name :initarg :class-name :accessor class-name)
-   (super-class :initarg :super-class :accessor super-class)
-   (sub-class :initarg :sub-class :accessor sub-class)
-   (id :initarg :id :accessor id)
-   (pos-x :initarg :position-x :accessor pos-x)
-   (pos-y :initarg :position-y :accessor pos-y)
-   (other :initarg :other :accessor other)))
 
 #|
 法造オントロジーをCLOSに変換するためのユーティリティ
@@ -97,14 +81,25 @@
 (defun get-concept-pos-x (concept)
   (loop for x in (find-list (xml-to-list *ontology-file*) "CONCEPT")
 	do (if (string= concept (third (car (find-list x "LABEL"))))
-	       (return (cadadr (second (car (find-list x "POS"))))))))
+	       (return (parse-integer (cadadr (second (car (find-list x "POS")))))))))
   
 (defun get-concept-pos-y (concept)
   (loop for x in (find-list (xml-to-list *ontology-file*) "CONCEPT")
 	do (if (string= concept (third (car (find-list x "LABEL"))))
-	       (return (cadar (second (car (find-list x "POS"))))))))
+	       (return (parse-integer (cadar (second (car (find-list x "POS")))))))))
   
 
+#|
+オントロジーの概念を定義するクラス
+|#
+(defclass ontology ()
+  ((class-name :initarg :class-name :accessor class-name)
+   (super-class :initarg :super-class :accessor super-class)
+   (sub-class :initarg :sub-class :accessor sub-class)
+   (id :initarg :id :accessor id)
+   (pos-x :initarg :position-x :accessor pos-x)
+   (pos-y :initarg :position-y :accessor pos-y)
+   (other :initarg :other :accessor other)))
 
 
 
@@ -122,6 +117,7 @@
 	      (eval `(defontology ,concept
 			 ,(make-instance 'ontology
 					 :class-name concept
+					 :super-class nil
 					 :sub-class (mapcar #'(lambda (lst) (intern (string-upcase lst) :ontology.class)) (get-child-concepts concept))
 					 :id (get-concept-id concept)
 					 :position-x (get-concept-pos-x concept)

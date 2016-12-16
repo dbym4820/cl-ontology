@@ -5,7 +5,7 @@
 
 (defsystem cl-ontology
   :version "0.1"
-  :author "TomokiAburatani"
+  :author "Tomoki Aburatani"
   :license "MIT License"
   :depends-on (:cl-ppcre
                :cxml
