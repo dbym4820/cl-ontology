@@ -12,7 +12,10 @@
 	       :cl-annot)
   :components ((:module "src"
                 :components
-                ((:file "cl-ontology"))))
+                ((:file "cl-ontology")
+		 (:file "util")
+		 (:file "ontology-parser")
+		 (:file "ontology-operator"))))
   :description "Library to operate ontology written by hozo"
   :long-description
   #.(with-open-file (stream (merge-pathnames
