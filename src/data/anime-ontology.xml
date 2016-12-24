@@ -2,8 +2,8 @@
 <OE_FILE filename="anime-ontology.xml" ont_id="1481885440000ont" >
 <FILENAME_ONT>anime-ontology.xml</FILENAME_ONT>
 <W_CONCEPTS>
-<CANVAS_SIZE w="6262" h="6475" x="0" y="0" />
-<CONCEPT id="1481885440000_n0" >
+<CANVAS_SIZE w="6819" h="6943" x="0" y="0" />
+<CONCEPT id="1481885440000_n0" class_constraint="slot2" >
 <LABEL>Any</LABEL>
 <SUB_LABELS>
 </SUB_LABELS>
@@ -14,11 +14,11 @@
 </RELATIONS>
 <SUB_L label="Any" def="" role_name="" class_const="" rh_name ="" value ="" />
 </CONCEPT>
-<CONCEPT id="1481885440000_n1" >
+<CONCEPT id="1481885440000_n1" class_constraint="slot2" >
 <LABEL>アニメ</LABEL>
 <SUB_LABELS>
 </SUB_LABELS>
-<POS x="230" y="40"/>
+<POS x="74" y="40"/>
 <SUB_TREE>open</SUB_TREE>
 <SLOTS>
 <SLOT id="1481885440000_s2" 
@@ -176,11 +176,11 @@
 </RELATIONS>
 <SUB_L label="アニメ" def="" role_name="" class_const="" rh_name ="" value ="" />
 </CONCEPT>
-<CONCEPT id="1481885440000_n24" >
+<CONCEPT id="1481885440000_n24" class_constraint="slot2" >
 <LABEL>TVアニメ</LABEL>
 <SUB_LABELS>
 </SUB_LABELS>
-<POS x="640" y="300"/>
+<POS x="403" y="280"/>
 <SLOTS>
 <SLOT id="1481885440000_s25" 
  type="NW"  label="slot"  kind="a/o"  num="1"  role="流通形態"  class_constraint="テレビ"  rh_name=""  value="" >
@@ -194,11 +194,11 @@
 </RELATIONS>
 <SUB_L label="TVアニメ" def="" role_name="" class_const="" rh_name ="" value ="" />
 </CONCEPT>
-<CONCEPT id="1481885440000_n26" >
+<CONCEPT id="1481885440000_n26" class_constraint="slot2" >
 <LABEL>アニメ映画</LABEL>
 <SUB_LABELS>
 </SUB_LABELS>
-<POS x="640" y="358"/>
+<POS x="405" y="347"/>
 <SLOTS>
 <SLOT id="1481885440000_s27" 
  type="NW"  label="slot"  kind="a/o"  num="1"  role="流通形態"  class_constraint="映画"  rh_name=""  value="" >
@@ -212,242 +212,36 @@
 </RELATIONS>
 <SUB_L label="アニメ映画" def="" role_name="" class_const="" rh_name ="" value ="" />
 </CONCEPT>
-<CONCEPT id="1481885440000_n28" >
-<LABEL>クール</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="601" y="41"/>
-<PART_TREE>close</PART_TREE>
-<SLOTS>
-<SLOT id="1481885440000_s29" 
- type="NW"  label="slot"  kind="a/o"  num="1"  role="年度"  class_constraint="年度"  rh_name="放送年度"  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<SUB_L label="" def="" role_name="" class_const="年度" rh_name ="" value ="" />
-</SLOT>
-<SLOT id="1481885440000_s30" 
- type="NW"  label="slot2"  kind="a/o"  num="1"  role="期間"  class_constraint="時間"  rh_name="1クール長"  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<PART_TREE>close</PART_TREE>
-<SUB_L label="" def="" role_name="" class_const="時間" rh_name ="" value ="" />
-</SLOT>
-<SLOT id="1481885440000_s31" 
- type="NW"  label="slot3"  kind="a/o"  num="1"  role="話数"  class_constraint="正の整数"  rh_name=""  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<PART_TREE>close</PART_TREE>
-<SUB_L label="" def="" role_name="" class_const="正の整数" rh_name ="" value ="" />
-</SLOT>
-<SLOT id="1481885440000_s32" 
- type="NW"  label="slot4"  kind="a/o"  num="1"  role="季節"  class_constraint="季節"  rh_name=""  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<PART_TREE>close</PART_TREE>
-<SUB_L label="" def="" role_name="" class_const="季節" rh_name ="" value ="" />
-</SLOT>
-</SLOTS>
-<RELATIONS>
-</RELATIONS>
-<SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
-</CONCEPT>
-<CONCEPT id="1481885440000_n33" >
-<LABEL>単位時間を表す語</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="400" y="20"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n34" >
-<LABEL>セメスター</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="601" y="1"/>
-<PART_TREE>close</PART_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n35" >
-<LABEL>クウォーター</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="601" y="21"/>
-<PART_TREE>close</PART_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n36" >
-<LABEL>数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="40" y="120"/>
-<PART_TREE>close</PART_TREE>
-<SUB_TREE>open</SUB_TREE>
-<SLOTS>
-<SLOT id="1481885440000_s37" 
- type="NW"  label="slot"  kind="a/o"  num="1"  role="符号"  class_constraint="符号"  rh_name=""  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<PART_TREE>close</PART_TREE>
-<SUB_L label="" def="" role_name="" class_const="符号" rh_name ="" value ="" />
-</SLOT>
-</SLOTS>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n38" >
-<LABEL>実在物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="20" y="40"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n39" >
-<LABEL>具体物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="41" y="81"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n40" >
-<LABEL>抽象物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="0" y="80"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n41" >
-<LABEL>実数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="20" y="160"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n42" >
-<LABEL>小数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="60" y="180"/>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n43" >
-<LABEL>整数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="20" y="250"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-<SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
-</CONCEPT>
-<CONCEPT id="1481885440000_n44" >
-<LABEL>虚数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="61" y="180"/>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n45" >
-<LABEL>正の整数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="70" y="290"/>
-<PART_TREE>close</PART_TREE>
-<SLOTS>
-<SLOT id="1481885440000_s46" 
- type="NW"  label="slot"  kind="a/o"  num="1"  role="符号"  class_constraint="正の符号"  rh_name=""  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<PART_TREE>close</PART_TREE>
-<PARENT_SLOT slot="数$slot"/>
-<SUB_L label="" def="" role_name="" class_const="正の符号" rh_name ="" value ="" />
-</SLOT>
-</SLOTS>
-<RELATIONS>
-</RELATIONS>
-<SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
-</CONCEPT>
-<CONCEPT id="1481885440000_n47" >
-<LABEL>負の整数</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="72" y="320"/>
-<PART_TREE>close</PART_TREE>
-<SLOTS>
-<SLOT id="1481885440000_s48" 
- type="NW"  label="slot"  kind="a/o"  num="1"  role="符号"  class_constraint="負の符号"  rh_name=""  value="" >
-<SUB_LABELS>
-</SUB_LABELS>
-<PART_TREE>close</PART_TREE>
-<PARENT_SLOT slot="数$slot"/>
-<SUB_L label="" def="" role_name="" class_const="負の符号" rh_name ="" value ="" />
-</SLOT>
-</SLOTS>
-<RELATIONS>
-</RELATIONS>
-<SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
-</CONCEPT>
-<CONCEPT id="1481885440000_n49" >
-<LABEL>非生物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="100" y="120"/>
-<SUB_TREE>open</SUB_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n50" >
-<LABEL>自然物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="81" y="141"/>
-<PART_TREE>close</PART_TREE>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n51" >
-<LABEL>人工物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="141" y="141"/>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
-<CONCEPT id="1481885440000_n52" >
+<CONCEPT id="1481885440000_n52" class_constraint="slot2" >
 <LABEL>Webアニメ</LABEL>
 <SUB_LABELS>
 </SUB_LABELS>
-<POS x="640" y="240"/>
+<POS x="439" y="192"/>
 <SLOTS>
 <SLOT id="1481885440000_s53" 
  type="NW"  label="slot"  kind="a/o"  num="1"  role="流通形態"  class_constraint="Web"  rh_name=""  value="" >
 <SUB_LABELS>
 </SUB_LABELS>
-<PART_TREE>close</PART_TREE>
 <PARENT_SLOT slot="アニメ$slot5"/>
 <SUB_L label="" def="" role_name="" class_const="Web" rh_name ="" value ="" />
+</SLOT>
+<SLOT id="1482572844000_s30" 
+ type="NW"  label="slot2"  kind="a/o"  num="20"  role="korはマジでない"  class_constraint="キャラクター"  rh_name="なんの"  value="あああ" >
+<SUB_LABELS>
+</SUB_LABELS>
+<PART_TREE>close</PART_TREE>
+<SUB_L label="" def="" role_name="" class_const="キャラクター" rh_name ="" value ="" />
 </SLOT>
 </SLOTS>
 <RELATIONS>
 </RELATIONS>
+<SUB_L label="" def="" role_name="" class_const="slot2" rh_name ="" value ="" />
 </CONCEPT>
-<CONCEPT id="1481885440000_n54" >
+<CONCEPT id="1481885440000_n54" class_constraint="slot2" >
 <LABEL>キャラクター</LABEL>
 <SUB_LABELS>
 </SUB_LABELS>
-<POS x="653" y="93"/>
+<POS x="336" y="34"/>
 <SLOTS>
 <SLOT id="1481885440000_s55" 
  type="NW"  label="slot"  kind="a/o"  num="1"  role="名前"  class_constraint="文字列"  rh_name=""  value="" >
@@ -475,40 +269,14 @@
 </RELATIONS>
 <SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
 </CONCEPT>
-<CONCEPT id="1481885440000_n58" >
-<LABEL>生物</LABEL>
-<SUB_LABELS>
-</SUB_LABELS>
-<POS x="160" y="100"/>
-<RELATIONS>
-</RELATIONS>
-</CONCEPT>
 <ISA id="1481885440000_isa59" parent="アニメ" child="TVアニメ" />
 <ISA id="1481885440000_isa60" parent="アニメ" child="アニメ映画" />
-<ISA id="1481885440000_isa61" parent="単位時間を表す語" child="クール" />
-<ISA id="1481885440000_isa62" parent="単位時間を表す語" child="セメスター" />
-<ISA id="1481885440000_isa63" parent="単位時間を表す語" child="クウォーター" />
-<ISA id="1481885440000_isa64" parent="Any" child="実在物" />
-<ISA id="1481885440000_isa65" parent="実在物" child="具体物" />
-<ISA id="1481885440000_isa66" parent="実在物" child="抽象物" />
-<ISA id="1481885440000_isa67" parent="抽象物" child="数" />
-<ISA id="1481885440000_isa68" parent="数" child="実数" />
-<ISA id="1481885440000_isa69" parent="実数" child="小数" />
-<ISA id="1481885440000_isa70" parent="実数" child="整数" />
-<ISA id="1481885440000_isa71" parent="数" child="虚数" />
-<ISA id="1481885440000_isa72" parent="整数" child="正の整数" />
-<ISA id="1481885440000_isa73" parent="整数" child="負の整数" />
-<ISA id="1481885440000_isa74" parent="具体物" child="非生物" />
-<ISA id="1481885440000_isa75" parent="非生物" child="自然物" />
-<ISA id="1481885440000_isa76" parent="非生物" child="人工物" />
 <ISA id="1481885440000_isa77" parent="アニメ" child="Webアニメ" />
 <ISA id="1481885440000_isa78" parent="Any" child="アニメ" />
-<ISA id="1481885440000_isa79" parent="Any" child="単位時間を表す語" />
-<ISA id="1481885440000_isa80" parent="具体物" child="生物" />
 <ISA id="1481885440000_isa81" parent="Any" child="キャラクター" />
 </W_CONCEPTS>
 <R_CONCEPTS>
-<CANVAS_SIZE w="7194" h="7270" />
+<CANVAS_SIZE w="9150" h="8909" />
 </R_CONCEPTS>
 <PRINTER>
 <PAGE_SETTINGS header="true" footer="true" cropmarks="true" scale="100" />

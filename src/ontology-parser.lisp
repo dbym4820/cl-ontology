@@ -4,7 +4,6 @@
 (in-package :cl-ontology)
 (annot:enable-annot-syntax)
 
-
 @export
 (defun set-ontology-file (file-path)
   (setf *ontology-file* file-path))
@@ -79,73 +78,46 @@
 #|
 部分・属性概念に関する情報取得
 |#
-(defun get-part-concepts (concept)
+(defun get-parts (concept)
   (loop for x in (find-list (xml-to-list *ontology-file*) "CONCEPT")
 	do (if (string= concept (third (car (find-list x "LABEL"))))
 	       (return (find-list x "SLOTS")))))
 
-(defun get-next-roles (tree)
-  (let ((lst nil))
-    (loop for x in (fourth (car tree))
-	  do (if (listp x)
-		 (if (stringp (car x))
-		     (if (string= (car x) "SLOTS")
-			 (push x lst)))))
-    lst))
 
-(defun get-role-concepts (concept)
-  (let ((slots (get-part-concepts concept)))
-    (loop for x in slots
-	  collect (cons (second (assoc "kind" (second x) :test #'string=)) (second (assoc "role" (second x) :test #'string=))))))
-
-(defun get-role-id (concept-name role-concept-name)
-  (loop for x in (get-part-concepts concept-name)
-	do (if (string=
-		role-concept-name
-		(second (assoc "role" (second x) :test #'string=)))
-	       (return (cons role-concept-name (second (assoc "id" (second x) :test #'string=)))))))
-	       
-	       
-
-
-
-
-
-
-
-
-
-
-
+(defun analyze-ontology-part (base-concept &key attribute-name concept-number)
+  (let* ((part-lst (loop for x in (remove-duplicates
+				   (mapcar #'(lambda (lst)
+					       (if (listp lst)
+						   (if (stringp (car lst))
+						       (if (string= (car lst) "SLOT")
+							   lst))))
+					   (cdr (car (get-parts base-concept)))))
+			 when (not (null x))
+			   collect x)))
+    (if (null concept-number)
+	(length part-lst)
+	(loop for concept-list in part-lst
+	      for count from 1
+	      when (string= (car concept-list) "SLOT")
+		do (if (= count concept-number)
+		       (let ((attributes (second concept-list)))
+			 (labels ((get-attr (attr)
+				    (return (second (assoc attr attributes :test #'string=)))))
+			   (cond
+			     ((equal attribute-name :role-name) (get-attr "role"))
+			     ((equal attribute-name :role-id) (get-attr "id"))
+			     ((equal attribute-name :role-holder) (get-attr "rh_name"))
+			     ((equal attribute-name :class-const) (get-attr "class_constraint"))
+			     ((equal attribute-name :value-attr) (get-attr "value"))
+			     ((equal attribute-name :cardinal) (get-attr "num"))
+			     ((equal attribute-name :kind) (get-attr "kind"))
+			     ((equal attribute-name :label) (get-attr "label"))))))))))
+        
+      
 
 #|
-オントロジーの概念を定義するクラス
+オントロジーコンバータ
 |#
-(defclass ontology-class ()
-  ((class-name :initarg :class-name :accessor class-name)
-   (super-class :initarg :super-class :accessor super-class)
-   (sub-class :initarg :sub-class :accessor sub-class)
-   (id :initarg :id :accessor id)
-   (pos-x :initarg :position-x :accessor pos-x)
-   (pos-y :initarg :position-y :accessor pos-y)
-   (part-concepts :initarg :part-concepts :accessor part-concepts)))
-
-(defclass part-concept ()
-  ((role-name :initarg :role-name :accessor role-name)
-   (id :initarg :id :accessor id)
-   (role-holder :initarg :role-holder :accessor role-holder)
-   (role-value :initarg :role-value :accessor role-value)
-   (class-const :initarg :class-const :accessor class-const)
-   (cardinality :initarg :cardinality :accessor cardinality)
-   (kind :initarg :kind :accessor kind)
-   (label :initarg :label :accessor label)
-   (type :initarg :type :accessor type)
-   (part-concepts :initarg :part-concepts :accessor part-concepts)))
-
-@export
-(defmacro defontology (concept-name contents)
-  `(defparameter ,(intern (string-upcase concept-name) :ontology.class) ,contents))
-
 @export
 (defun convert-ontology (&optional (file-name nil))
   (if file-name
@@ -161,32 +133,39 @@
 					 :id (get-concept-id concept)
 					 :position-x (get-concept-pos-x concept)
 					 :position-y (get-concept-pos-y concept)
-					 :part-concepts (get-role-concepts concept)))))
+					 :part-concepts nil))))
 	    (get-concept-list)))
 
-
-
- 	;; (flatten (mapcar #'(lambda (lst) (mapcar #'cdr (get-role-concepts lst))) *ontology-list*))
-  
-  ;; (defparameter *ontology-part-list* nil)
-  ;; (loop for concept in (get-concept-list)
-  ;; 	do (loop for x in (get-role-concepts concept)
-  ;; 		 do (push
-  ;; 		     (eval `(defontology ,(cdr x)
-  ;; 				,(make-instance 'part-concept
-  ;; 						:role-name (cdr x)
-  ;; 						:id (get-role-id (cdr x))
-  ;; 						:role-holder ""
-  ;; 						:role-value ""
-  ;; 						:class-const ""
-  ;; 						:cardinality ""
-  ;; 						:kind ""
-  ;; 						:label ""
-  ;; 						:type ""
-  ;; 						:part-concepts (get-role-concepts concept))))
-  ;; 		     *ontology-part-list*))))
-  )
-
+  (defparameter *ontology-parts-list*
+    (mapcar (lambda (concept)
+	      (loop for lst-count below (1+ (analyze-ontology-part concept))
+		    when (not (null (analyze-ontology-part concept
+							   :attribute-name :role-name
+							   :concept-number lst-count)))     
+		      collect (eval `(defontology-part
+					 ,(concatenate 'string
+						       concept
+						       "-"
+						       (analyze-ontology-part concept
+									      :attribute-name :role-name
+									      :concept-number lst-count))
+					 ,(labels ((part-analyze (attr)
+						     (analyze-ontology-part concept
+									    :attribute-name attr
+									    :concept-number lst-count)))
+					    (eval
+					     (make-instance 'part-concept
+							    :role-name (part-analyze :role-name)
+							    :id (part-analyze :role-id)
+							    :role-holder (part-analyze :role-holder)
+							    :role-value (part-analyze :value-attr)
+							    :class-const (part-analyze :class-const)
+							    :cardinality (part-analyze :cardinal)
+							    :kind (part-analyze :kind)
+							    :label (part-analyze :label)
+							    :belonged-class (intern concept :ontology.class))))))))
+			      (get-concept-list))))
+						
 
 #|
 オントロジーXMLのCLOSへのコンバート
