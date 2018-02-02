@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OE_FILE filename="f.xml" ont_id="1481962789671ont" >
+<FILENAME_ONT>f.xml</FILENAME_ONT>
+<W_CONCEPTS>
+<CANVAS_SIZE w="3100" h="4067" x="0" y="0" />
+<CONCEPT id="1481990053000_n8" class_constraint="slot" >
+<LABEL>Any</LABEL>
+<SUB_LABELS>
+</SUB_LABELS>
+<POS x="30" y="10"/>
+<PART_TREE>close</PART_TREE>
+<SUB_TREE>open</SUB_TREE>
+<RELATIONS>
+</RELATIONS>
+<SUB_L label="" def="" role_name="" class_const="slot" rh_name ="" value ="" />
+</CONCEPT>
+<CONCEPT id="1508836531000_n1" >
+<LABEL>俺</LABEL>
+<SUB_LABELS>
+</SUB_LABELS>
+<POS x="167" y="124"/>
+<SLOTS>
+<SLOT id="1517585818000_s2" 
+ type="NW"  label="slot"  kind="p/o"  num="1"  role="a"  class_constraint="Any"  rh_name=""  value="" >
+<SUB_LABELS>
+</SUB_LABELS>
+<PART_TREE>close</PART_TREE>
+<SUB_L label="" def="" role_name="" class_const="Any" rh_name ="" value ="" />
+</SLOT>
+</SLOTS>
+<RELATIONS>
+</RELATIONS>
+<SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
+</CONCEPT>
+<CONCEPT id="1508836531000_n2" >
+<LABEL>男性キャラクター</LABEL>
+<SUB_LABELS>
+</SUB_LABELS>
+<POS x="173" y="33"/>
+<PART_TREE>close</PART_TREE>
+<SLOTS>
+<SLOT id="1517585818000_s4" 
+ type="NW"  label="slot"  kind="p/o"  num="1"  role="b"  class_constraint="Any"  rh_name=""  value="" >
+<SUB_LABELS>
+</SUB_LABELS>
+<PART_TREE>close</PART_TREE>
+<SUB_L label="" def="" role_name="" class_const="Any" rh_name ="" value ="" />
+</SLOT>
+</SLOTS>
+<RELATIONS>
+</RELATIONS>
+<SUB_L label="" def="" role_name="" class_const="" rh_name ="" value ="" />
+</CONCEPT>
+<ISA id="1508836531000_isa3" parent="Any" child="俺" />
+<ISA id="1508836531000_isa4" parent="Any" child="男性キャラクター" />
+</W_CONCEPTS>
+<R_CONCEPTS>
+<CANVAS_SIZE w="3240" h="4203" />
+</R_CONCEPTS>
+<PRINTER>
+<PAGE_SETTINGS header="true" footer="true" cropmarks="true" scale="100" />
+<PAGE_FORMAT w="595.0" h="842.0" iw="559.0" ih="783.0" ix="18.0" iy="18.0" />
+<PRINTER_SETTINGS orientation="1" printername="研究室プリンタ" />
+</PRINTER>
+</OE_FILE>

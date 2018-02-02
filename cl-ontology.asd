@@ -7,15 +7,12 @@
   :version "0.1"
   :author "Tomoki Aburatani"
   :license "MIT License"
-  :depends-on (:cl-ppcre
-               :cxml
-	       :cl-annot)
+  :depends-on (:alexandria
+               :cl-ppcre
+               :xmls)
   :components ((:module "src"
                 :components
-                ((:file "cl-ontology")
-		 (:file "util")
-		 (:file "ontology-parser")
-		 (:file "ontology-operator"))))
+                ((:file "cl-ontology"))))
   :description "Library to operate ontology written by hozo"
   :long-description
   #.(with-open-file (stream (merge-pathnames

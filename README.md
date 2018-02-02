@@ -1,45 +1,50 @@
-# Cl-Ontology - Library to operate ontology written by hozo
+# cl-ontology - Library to operate ontology written by hozo
 
-未完成
-## TODO
+## Status
 
-
-- 基本概念が持つデータを全てCLOSに落とし込む
-- part, attributeを持てる陽にクラスを改造
-- データ利用，解析に使いやすいようなマクロを整備
-- 全てができればRoswellでコマンドラインから処理できるツールとしてリリースしたい
-
-
+In progress
 
 ## What is this library
 
 [法造](http://www.hozo.jp/hozo/)(オントロジー構築ツール)を用いて作成したオントロジーをCommonLispで活用するためのユーティリティ
 
+## Requirement
+
+- roswell
+- quicklisp
+- hozo
+
 ## Installation
 
-事前にquicklispのインストールが必要です
+- cl-ontology
 
-
-- cl-ontologyについて
-
-```sh
-mkdir /path/to/directory
-cd /path/to/directory
-git clone https://github.com/TomokiAburatani/cl-ontology.git
-sudo add-project.sh
 ```
-
+$ ros install dbym4820/cl-ontology
+```
 
 - 法造について
 [こちら(http://support.hozo.jp/modules/tinyd2/index.php?id=3)](http://support.hozo.jp/modules/tinyd2/index.php?id=3)を参照ください(大阪大学知識システム研究室の法造HPへのリンクです)
 
 ## Usage
 
-```cl
-(ql:quickload :cl-ontology)
+- As Common Lisp library
 
-(cl-ontology:set-ontology-file "/absolute/path/to/ontology.xml")
-(cl-ontology:convert-ontology)
+```cl
+CL-USER> (ql:quickload :cl-ontology :silent t)
+T
+
+CL-USER (cl-ontology:convert-ontology "/absolute/path/to/ontology.xml")
+(<concept-name-list> ...)
+
+CL-USER> (mapcar #'(lambda (d)
+              	(show-attribute :role-name d))
+                 (show-attribute :proper (dusque:find-concept "アニメ")))
+```
+
+- As roswell script on shell
+
+```
+? clon アニメ --proper
 ```
 
 
@@ -49,7 +54,7 @@ sudo add-project.sh
 
 ## Copyright
 
-Copyright (c) 2016 TomokiAburatani
+Copyright (c) 2018 TomokiAburatani
 
 ## License
 

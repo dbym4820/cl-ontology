@@ -1,0 +1,31 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn
+  (ros:ensure-asdf)
+  (unless (find-package :cl-ontology)
+    (ql:quickload :cl-ontology :silent t)))
+
+(defpackage :ros.script.clon
+  (:use :cl :clon))
+(in-package :ros.script.clon)
+
+(defun option-eq (option-arg correct-option-list)
+  (find option-arg correct-option-list :test #'string=))
+
+(defun main (&rest argv)
+  (let ((first-option (first argv))
+        (second-option (second argv))
+        (third-option (third argv))
+        (fourth-option (fourth argv)))
+    (declare (ignorable first-option second-option third-option fourth-option))
+    (cond ((option-eq first-option '("--file"))
+           (convert-ontology :file-path second-option)
+           (format t "~@{~A~}~%" (remove "whole-root" (clon:show-concepts) :test #'string=)))
+          ((option-eq first-option '("--all-concept" "-a"))
+	   (clon:convert-ontology)
+           (format t "~A" (clon:show-concepts)))
+          (t
+           (format t "~A~%" "Invalid input")))))
