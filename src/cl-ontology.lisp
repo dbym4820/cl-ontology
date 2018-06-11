@@ -22,7 +22,8 @@
   ((concept-name :initform "any" :initarg :name :accessor concept-name)))
 
 (defclass basic-concept (concept)
-  ((property-list :initform nil :initarg :property :accessor property-list)))
+  ((property-list :initform nil :initarg :property :accessor property-list)
+   (parent-concept :initform nil :initarg :parent-concept :accessor parent-concept)))
 
 (defclass non-basic-concept (concept)
   ((role-name :initform "new" :initarg :name :accessor concept-name)
@@ -119,7 +120,7 @@
 
 
 #|
-オントロジーのXMLへのコンバート
+法造オントロジーのXMLへのコンバート
 |#
 
 ;;; オントロジーファイルをXMLリストに変換
@@ -207,7 +208,36 @@
           (get-attribute-from-slot-tags concept-name "class_constraint" xml-file-path)
           (get-attribute-from-slot-tags concept-name "rh_name" xml-file-path)
           (get-attribute-from-slot-tags concept-name "num" xml-file-path)))
-       
+
+;;; XMLリストから基本概念の親子関係を取得
+(defun get-child-parent (&optional (xml-file-path *default-ontology-file*))
+  (mapcar #'(lambda (child-parent-id-list)
+	      (let ((child-concept-label (second (first (first child-parent-id-list))))
+		    (parent-concept-label (second (second (first child-parent-id-list)))))
+	        (cons child-concept-label parent-concept-label)))
+	  (remove-if #'null
+		     (mapcar #'(lambda (tag-list)
+				 (when (string= (get-tag-name tag-list) "ISA")
+				   (cdr tag-list)))
+			     (get-w-concept-tags xml-file-path)))))
+
+;;; 親概念名を基に子概念を取得
+(defun get-child-concept (concept-name &optional (xml-file-path *default-ontology-file*))
+  (remove-if #'null
+	     (mapcar #'(lambda (child-parent)
+			 (when (string= (cdr child-parent) concept-name)
+			   (car child-parent)))
+	     (get-child-parent xml-file-path))))
+
+;;; 子概念名を基に親概念を取得
+(defun get-parent-concept (concept-name &optional (xml-file-path *default-ontology-file*))
+  (remove-if #'null
+	     (mapcar #'(lambda (child-parent)
+			 (when (string= (car child-parent) concept-name)
+			   (cdr child-parent)))
+	     (get-child-parent xml-file-path))))
+
+
 
 #|
 オントロジーのCLOSへのコンバート
@@ -232,6 +262,7 @@
 
 ;;; is-a関係の変換
 (defun convert-isa-relation (&optional (xml-file-path *default-ontology-file*) (ont *default-ontology*))
+  ;; ここで，Basic-conceptのparent-conceptの中に親概念を突っ込む
   )
 
 ;;; 部分/属性概念の変換
@@ -279,6 +310,8 @@ CLOSオントロジー操作用API
 ;;; 基本概念の属性検索
 (defun find-attribute ())
 
+;;; 基本概念の子概念を検索
+
 ;;; CLOSオントロジーの各パラメータを文字列として表示
 (defun show-attribute (attribute concept)
   (let ((return-value
@@ -292,9 +325,13 @@ CLOSオントロジー操作用API
                  (cardinality concept))
                 ((eql attribute :concept-type)
                  (concept-type concept))
+		((eql attribute :parent)
+		 ;; ここをクラス内の親概念取得メソッドに書き換え
+		 (car (get-parent-concept (concept-name concept))))
                 (t
                  nil))))
     (cond ((listp return-value)
            (remove-if #'null return-value))
           (t
            return-value))))
+
