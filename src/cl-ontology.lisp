@@ -172,7 +172,7 @@
 ;;; 概念定義の先頭からの出現番号
 (defun get-concept-position-from-ahead (concept-name &optional (xml-file-path *default-ontology-file*))
   (position concept-name (get-concept-label xml-file-path) :test #'string=))
-  
+
 ;;; 特定概念の塊リストを取り出す
 (defun get-specific-concept-tags (concept-name &optional (xml-file-path *default-ontology-file*))
   (remove-if #'null
@@ -236,8 +236,6 @@
 			 (when (string= (car child-parent) concept-name)
 			   (cdr child-parent)))
 	     (get-child-parent xml-file-path))))
-
-
 
 #|
 オントロジーのCLOSへのコンバート
@@ -311,6 +309,7 @@ CLOSオントロジー操作用API
 (defun find-attribute ())
 
 ;;; CLOSオントロジーの各パラメータを文字列として表示
+;;; あとでCLOSメソッドに変更
 (defun show-attribute (attribute concept)
   (let ((return-value
           (cond ((eql attribute :proper)
@@ -325,7 +324,7 @@ CLOSオントロジー操作用API
                  (concept-type concept))
 		((eql attribute :parent)
 		 ;; ここをクラス内の親概念取得メソッドに書き換え
-		 (car (get-parent-concept (concept-name concept))))
+		 (first (get-parent-concept (concept-name concept))))
 		((eql attribute :child)
 		 ;; ここをクラス内の親概念取得メソッドに書き換え
 		 (get-child-concept (concept-name concept)))
@@ -341,7 +340,7 @@ CLOSオントロジー操作用API
 (defgeneric concept-inherit-p (source-concept target-concept))
 (defmethod concept-inherit-p ((source-concept basic-concept) (target-concept basic-concept))
       (labels ((rec-pred (sou)
-		 (cond ((string= (show-attribute :concept-name sou) (show-attribute :concept-name target-concept)) t)
-		       ((null sou) nil)
+		 (cond ((null sou) nil)
+		       ((string= (concept-name sou) (concept-name target-concept)) t)
 		       (t (rec-pred (find-concept (show-attribute :parent sou)))))))
 	(rec-pred source-concept)))
