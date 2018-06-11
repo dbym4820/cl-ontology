@@ -310,8 +310,6 @@ CLOSオントロジー操作用API
 ;;; 基本概念の属性検索
 (defun find-attribute ())
 
-;;; 基本概念の子概念を検索
-
 ;;; CLOSオントロジーの各パラメータを文字列として表示
 (defun show-attribute (attribute concept)
   (let ((return-value
@@ -328,6 +326,9 @@ CLOSオントロジー操作用API
 		((eql attribute :parent)
 		 ;; ここをクラス内の親概念取得メソッドに書き換え
 		 (car (get-parent-concept (concept-name concept))))
+		((eql attribute :child)
+		 ;; ここをクラス内の親概念取得メソッドに書き換え
+		 (get-child-concept (concept-name concept)))
                 (t
                  nil))))
     (cond ((listp return-value)
@@ -335,3 +336,12 @@ CLOSオントロジー操作用API
           (t
            return-value))))
 
+;;; 第１引数として与えた基本概念が第２引数として与えた基本概念の下位概念かを調べる述語（継承関係の有無を調べる）
+;;; 後にCLOSクラスを引数として取るメソッドに変更
+(defgeneric concept-inherit-p (source-concept target-concept))
+(defmethod concept-inherit-p ((source-concept basic-concept) (target-concept basic-concept))
+      (labels ((rec-pred (sou)
+		 (cond ((string= (show-attribute :concept-name sou) (show-attribute :concept-name target-concept)) t)
+		       ((null sou) nil)
+		       (t (rec-pred (find-concept (show-attribute :parent sou)))))))
+	(rec-pred source-concept)))
