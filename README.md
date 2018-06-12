@@ -1,5 +1,7 @@
 # cl-ontology - Library to operate ontology written by hozo
 
+[![Build Status](https://travis-ci.com/dbym4820/cl-ontology.svg?branch=develop)](https://travis-ci.com/dbym4820/cl-ontology)
+
 ## Status
 
 In progress
