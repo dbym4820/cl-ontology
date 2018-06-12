@@ -9,13 +9,15 @@
 
 (setf *enable-colors* nil)
 (defparameter *ontology-pathname*
-  (merge-pathnames #P"t/ontology/anime-ontology.xml"
-		   (asdf:system-source-directory 'cl-ontology)))
+  (namestring (merge-pathnames #P"t/ontology/anime-ontology.xml"
+			       (asdf:system-source-directory 'cl-ontology))))
 
 (plan 2)
 
 (subtest "Ontology convert test"
-  (ok (cl-ontology::convert-ontology :file-path *ontology-pathname* :update t)))
+  (ok (cl-ontology::convert-ontology :file-path *ontology-pathname* :update t))
+  (ok clon::*default-ontology*)
+  (is-type clon::*default-ontology* 'clon::ontology))
 
 (subtest "basic-concept test"
   (let* ((test-any-instance (make-concept "Any" :c-type :basic-concept))

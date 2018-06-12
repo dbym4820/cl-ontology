@@ -1,8 +1,17 @@
 language: common-lisp
 sudo: required
 
+env:
+  global:
+    - PATH=~/.roswell/bin:$PATH
+  matrix:
+    - LISP=sbcl-bin
+    - LISP=ccl-bin
+
 install:
   - curl -L https://raw.githubusercontent.com/snmsts/roswell/release/scripts/install-for-ci.sh | sh
-
+  - ros install prove
+  - git clone https://github.com/dbym4820/cl-ontology ~/lisp/cl-ontology
+  
 script:
-  - ros -s prove -e '(or (prove:run :cl-ontology-test) (uiop:quit -1))'
+  - run-prove cl-ontology-test.asd
