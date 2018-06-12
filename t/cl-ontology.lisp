@@ -15,7 +15,7 @@
 (plan 2)
 
 (subtest "Ontology convert test"
-  (ok (cl-ontology::convert-ontology :file-path *ontology-pathname* :update t))
+  (ok (clon::convert-ontology :file-path *ontology-pathname* :update t))
   (ok clon::*default-ontology*)
   (is-type clon::*default-ontology* 'clon::ontology))
 
