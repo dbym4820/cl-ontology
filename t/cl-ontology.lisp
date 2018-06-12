@@ -11,11 +11,11 @@
 (defparameter *ontology-pathname*
   (namestring (merge-pathnames #P"t/ontology/anime-ontology.xml"
 			       (asdf:system-source-directory 'cl-ontology))))
+(clon::convert-ontology :file-path *ontology-pathname* :update t)
 
 (plan 2)
 
 (subtest "Ontology convert test"
-  (ok (clon::convert-ontology :file-path *ontology-pathname* :update t))
   (ok clon::*default-ontology*)
   (is-type clon::*default-ontology* 'clon::ontology))
 
