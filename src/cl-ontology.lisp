@@ -12,7 +12,8 @@
            :show-concepts
            :find-concept
            :find-attribute
-           :show-attribute))
+           :show-attribute
+	   :concept-inherit-p))
 (in-package :cl-ontology)
 
 #|
@@ -310,7 +311,7 @@ CLOSオントロジー操作用API
 
 ;;; CLOSオントロジーの各パラメータを文字列として表示
 ;;; あとでCLOSメソッドに変更
-(defun show-attribute (attribute concept)
+(defun show-attribute (attribute concept &optional (ont *default-ontology*))
   (let ((return-value
           (cond ((eql attribute :proper)
                  (property-list concept))
@@ -337,8 +338,8 @@ CLOSオントロジー操作用API
 
 ;;; 第１引数として与えた基本概念が第２引数として与えた基本概念の下位概念かを調べる述語（継承関係の有無を調べる）
 ;;; 後にCLOSクラスを引数として取るメソッドに変更
-(defgeneric concept-inherit-p (source-concept target-concept))
-(defmethod concept-inherit-p ((source-concept basic-concept) (target-concept basic-concept))
+(defgeneric concept-inherit-p (source-concept target-concept &key))
+(defmethod concept-inherit-p ((source-concept basic-concept) (target-concept basic-concept) &key (ont *default-ontology*) )
       (labels ((rec-pred (sou)
 		 (cond ((null sou) nil)
 		       ((string= (concept-name sou) (concept-name target-concept)) t)
